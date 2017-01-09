@@ -1,0 +1,5 @@
+ages<-c(36,35,4)
+name(ages) <- c("mako", "mika", "atom")
+length(ages)
+mean(ages)
+hist(ages)
