@@ -10,6 +10,12 @@ read.csv("week3_dataset-anissa.csv")
 wk.3.ds <- read.csv("week3_dataset-anissa.csv")
 # Also load the Week 2 dataset into a variable called "wk.3.ds"
 load("~/Github/uwcom521-anissa/week_02_dataset-anissa.RData")
+#NOTE: load() is used for R data files, read.csv() is used for csv files, etc.
+#NOTE: Nice library called foreign that allows you to 
+#load stats made with other stats programs, like Stata for example
+#NOTE: Can also do it manually in the data pane, but if you do that use the wizard
+#that will spit out the code it created to do that, and copy and paste it into your script
+#(will show up in the "Import Text Data" preview window)
 
 #PC4
 #Get to know your data! Do whatever is necessary to summarize the new dataset. 
@@ -51,6 +57,10 @@ table(wk.3.ds$i)
 
 table(wk.3.ds$k)
 
+#NOTE: str() will show you the structure of the dataset. 
+#NOTE: Mako does as.data.frame()
+#NOTE: dim() will give you both number of columns and rows
+#NOTE: plot() will take every variable and plot it against every other variable
 
 #PC5
 #PC5. Compare the week2.dataset vector with the first column (x) of the data frame. 
@@ -94,6 +104,10 @@ comparison.df
 #Many of the numbers are off by teeny tiny numbers, indicating that the computer
 #probably rounded some of the numbers differently. The numbers are so small that
 #they are practically zero.
+#NOTE: Mako just did table(week2.dataset == week3.dataset$x) and saw that only 7 of them match. 
+#Since they didn't, he rounded the numbers to six decimal places, and then it worked. 
+#So, he knows they're not the same, but that they are identical to six decimal places. 
+#Mako wasn't expecting this
 
 
 #PC6 
@@ -170,6 +184,10 @@ wk.3.ds$i <-wk.3.ds$i==1
 #Check that this turned out ok by printing the top of the dataframe
 head(wk.3.ds)
 
+#NOTE: Mako used as.logical() which he recommends
+#NOTE: If you use "as.logical()" ... it will always assume that any zeros are FALSE and
+#any other number is TRUE
+
 #Now to tackle variable k.
 
 #I think that first I need to make the numbers into a factor, so that I can replace
@@ -180,6 +198,14 @@ wk.3.ds$k <- as.factor(wk.3.ds$k)
 library(plyr)
 revalue(wk.3.ds$k, c("0"="NONE", "1"="SOME", "2"="LOTS", "3"="ALL"))
 #Worked beautifully!
+#NOTE: Beth did as.factor(x, labels = c("none", "some", "lots", "all"))
+#But not clear why it's attaching labels to the right values. For this reason, Mako did:
+#factor(d$k.factor, levels=c(0,1,2,3), labels=c("none", "some", "lots", "all"))
+#NOTE: This is how you would do it in "core R" as Mako says
+#NOTE: The library I used is from this guy Hadley, whose methods often don't scale well 
+#to large data ... run slowly.
+#NOTE: Another way:
+#d$k.factor[d$k == 0] <-"none", d$k.factor[d$k == 1] <-"some", d$k.factor[d$k == 2] <-"lots", d$k.factor[d$k == 3] <-"all"
 
 #Now I want to plot this again, just to see what happens. 
 
