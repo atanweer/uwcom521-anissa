@@ -1,5 +1,6 @@
 # PC3
 #Load the CSV file into R. Also make sure that you loaded the week 2 dataset file.
+library(ggplot2)
 
 # Find the dataset in my homework directory
 setwd("/Users/anissa/Github/uwcom521-anissa")
