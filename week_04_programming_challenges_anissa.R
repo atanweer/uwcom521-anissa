@@ -80,6 +80,9 @@ monthly.views.df <- data.frame(Month=names(monthly.views), monthly.views=monthly
 monthly.views.df
 #Yep! Except that the months are repeated in the month column, but that's 
 #what Mako's looks like, too, up to the point I can watch the video
+#NOTE: IT TURNED OUT LATER THAT THE COLUMN WASN'T DOUBLED, BUT BECAUSE THE ROW NAMES WERE THE DATES
+#HOW TO GET RID OF THAT IS rownames(df) <- NULL
+#NOTE: THE NAMES PART IN THAT LAST LINE OF CODE ARE REALLY IMPORTANT
 
 #PC4
 #Using the mobile dataset, create a new data frame where one column is each month described in the data
@@ -149,6 +152,10 @@ monthly.views.df$Month <- as.Date(monthly.views.df$Month, format="%Y-%m-%d")
 
 #Now I can try this again: 
 percent.mobile.views.df <- merge(monthly.views.df, mobile.all.monthly.views.df, by.x="Month", by.y = "Month", all.x = TRUE, all.y = TRUE)
+#NOTE: GOOD IDEA TO ALWAYS DO all.x=TRUE and all.y=TRUE BECAUSE THAT WAY YOU CAN SEE THE DATA
+#THAT DOESN'T MATCH UP, INSTEAD OF IT JUST DISAPPEARING. THIS IS IMPORTANT BECAUSE SOMETIMES
+#IT MIGHT HELP YOU CATCH ANOMALIES IN DATA, E.G. LIKE ONE OBSERVATION BEING "SEATTLE, WA" AND 
+#ANOTHER BEING "SEATTLE, WASHINGTON").
 
 percent.mobile.views.df
 
@@ -176,7 +183,7 @@ percent.mobile.views.df
 #assumptions: that everything is in the right order!
 
 
-#PC6. Graph this over time and be ready to describe: 
+#PC7. Graph this over time and be ready to describe: 
 #(a) your best estimate of the proportion of views from mobiles to the Seattle City website over time and 
 #(b) an indication of whether it's going up or down.
 
@@ -185,11 +192,16 @@ percent.mobile.views.df
 percent.mobile.views.df <- percent.mobile.views.df[order(percent.mobile.views.df$Month),]
 percent.mobile.views.df
 
-
+#NOTE: CAN GET RID OF NA'S THIS WAY: views <-views[apply(views, 1, function(x) {!all(is.na(x))}),]
 #Now, I'll plot it.
 
 plot(percent.mobile.views.df$Month, percent.mobile.views.df$percent.mobile.views)
 
 #There's not really a discernable trend. It looks pretty stable, with a couple
 #anomolous data points that could be errors of some kind. 
+#Can look at the mean, but remember to remove NA's:
+mean(percent.mobile.views.df$percent.mobile.views, na.rm = TRUE)
+
+#NOTE: IF I DON'T WANT SOME OF MY VARIABLES TO BE ARRAYS (LIKE THEY ARE), CAN CHANGE IT THIS WAY:
+percent.mobile.views.df$percent.mobile.views <- as.numeric(percent.mobile.views.df$percent.mobile.views)
 
