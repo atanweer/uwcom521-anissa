@@ -46,6 +46,7 @@ mean(my.sample)
 #(a) compute the confidence interval by hand
 
 my.conf.int <- mean(my.sample) + (1.96 * sd(my.sample) / sqrt(length(my.sample))) * c(-1, 1)
+my.conf.int
 
 #(b) find the confidence interval using an r function
 t.test(my.sample)
@@ -73,7 +74,33 @@ hist((my.sample))
 #PC3. Compute the mean of y from the true population and then create the mean and confidence interval 
 #from the y in your sample. Is it in or out?
 
-#I don't think we have a y in our data
+#Oops, just realized I've been working from the week2 dataset instead of week3, which does
+#actually have a y variable. So have to load that one up. 
+#Pass it into a new variable (#This is going to get messy since I don't have x and y in the same variable)
+
+week3.dataset <- read.csv("week3_dataset-anissa.csv")
+head(week3.dataset)
+
+my.sample.y <- week3.dataset$y
+
+#Find the mean of my.sample
+mean(my.sample.y)
+
+#(a) compute the confidence interval by hand
+
+my.conf.int.y <- mean(my.sample.y) + (1.96 * sd(my.sample.y) / sqrt(length(my.sample.y))) * c(-1, 1)
+my.conf.int.y
+
+#(b) find the confidence interval using an r function
+t.test(my.sample.y)
+#As to why they aren't they the same .... can't answer yet, haven't read OpenIntro
+
+#(c) is the true population mean within the confidence interval of my.sample.y?
+mean(my.sample.y) > my.conf.int.y[1] & mean(my.sample.y) < my.conf.int.y[2]
+# TRUE, so yes, it's within the confidence interval
+
+
+
 
 #PC4. I want you to run a simple simulation that demonstrates one of the most fundamental 
 #insights of statistics:
