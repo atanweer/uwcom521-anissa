@@ -1,4 +1,5 @@
 #PC0
+
 #I've provided the full dataset from which I drew each of your samples in a TSV file 
 #in the directory week_05 in class assignment git repository. These are tab delimited, not comma delimited. 
 #TSV, is related to CSV and is also a common format. Go ahead and load it into R (HINT: read.delim()). 
@@ -20,6 +21,7 @@ head(population)
 #Take the mean of variable x (TRUE POPULATION MEAN)
 mean(population$x)
 # PC1. 
+
 #Go back to the dataset I distributed for the week 3 problem set. 
 #You've already computed the mean for this in week 2. 
 #You should compute the 95% confidence interval for the variable x in two ways:
@@ -57,6 +59,7 @@ mean(my.sample) > my.conf.int[1] & mean(my.sample) < my.conf.int[2]
 #YES, the true population mean is within the confidence interval of my sample mean
 
 #PC2. 
+
 #Let's look beyond the mean. 
 #Compare the distribution from your sample of x to the true population. 
 #Draw histograms and compute other descriptive and summary statistics. 
@@ -68,10 +71,12 @@ summary(my.sample)
 hist((population$x))
 hist((my.sample))
 
-#The population has a much lower min. and a larger max (though the difference isn't quite as big)
+#The population has a much lower min. and a larger max, and it's more normal.
 
 
-#PC3. Compute the mean of y from the true population and then create the mean and confidence interval 
+#PC3. 
+
+#Compute the mean of y from the true population and then create the mean and confidence interval 
 #from the y in your sample. Is it in or out?
 
 #Oops, just realized I've been working from the week2 dataset instead of week3, which does
@@ -102,7 +107,9 @@ mean(my.sample.y) > my.conf.int.y[1] & mean(my.sample.y) < my.conf.int.y[2]
 
 
 
-#PC4. I want you to run a simple simulation that demonstrates one of the most fundamental 
+#PC4. 
+
+#I want you to run a simple simulation that demonstrates one of the most fundamental 
 #insights of statistics:
 #(a) Create a vector of 10,000 randomly generated numbers that are uniformly distributed between 0 and 9.
 #(b) Take the mean of that vector. Draw a histogram.
@@ -161,10 +168,14 @@ hist(sample.means.2)
 hist(sample.means.10)
 hist(sample.means.100)
 
-#It's not as distributed ... the min and max are much closer together. 
+#It's not as distributed ... the min and max are much closer together. Better distributed around the true mean.
+
+#LOOK AT MAKO'S ANSWERS TO SEE HOW TO REPLACE THE SAMPLE SIZE WITH A FUNCTION
 
 
-#PC5. Do PC4 again but with random data drawn from a normal distribution (mu = 42, sigma = 42)
+#PC5. 
+
+#Do PC4 again but with random data drawn from a normal distribution (mu = 42, sigma = 42)
 #instead of a uniform distribution. How are you results different than in PC4?
 
 
