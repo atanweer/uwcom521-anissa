@@ -32,6 +32,8 @@ table.2 <- table(us.customers$gender, us.customers$order_type)
 colnames(table.2) <- c("Arduino", "Both", "LilyPad")
 table.2
 
+#NOTE: CAN CHANGE THE ORDER BY CHANGING THE LEVELS IN THE DATAFRAME WITH relevel()
+
 #(b) Run a [chi-squared]-test on both tables. 
 #Compare to the paper (for Table 1, there doesn't seem to be a [chi squared] test for Table 2). 
 #Did you reproduce it?
@@ -98,6 +100,9 @@ AttritionRate <- c((cscw.attendance$Day1-cscw.attendance)$Day2/cscw.attendance$D
 cscw.attendance <- cbind(cscw.attendance, AttritionRate)
 
 chisq.test(cscw.attendance)
+
+#I got a warning message, though, sayin that the chi-squared approximation may be incorrect.
+#I'm not sure why. 
 
 #There appears to be no difference between these. 
 #I can't figure out how to get the proptest to work. 
