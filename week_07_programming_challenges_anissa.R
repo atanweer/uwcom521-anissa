@@ -33,6 +33,9 @@ colnames(table.2) <- c("Arduino", "Both", "LilyPad")
 table.2
 
 #NOTE: CAN CHANGE THE ORDER BY CHANGING THE LEVELS IN THE DATAFRAME WITH relevel()
+#But that seems really complicated. Can also just reassign levels. 
+#Mako's example with warpbreaks dataset
+#factor(wb$tension, levels = c("M", "L", "H"))
 
 #(b) Run a [chi-squared]-test on both tables. 
 #Compare to the paper (for Table 1, there doesn't seem to be a [chi squared] test for Table 2). 
@@ -68,6 +71,9 @@ write.table(table.2, "/Users/anissa/Github/uwcom521-anissa/LilyPadTable2")
 
 #Hmmm, that sort of worked. I can't open them in Excel, but I can in a text editor or word
 
+#NOTE: THERE ARE A BUNCH OF R PACKAGES FOR WRITING REGRESSION TABLE OUTPUTS
+#E.G. STARGAZER
+
 #PC2. 
 
 #At the Community Data Science Workshops we had two parallel afternoon sessions on Day 1. 
@@ -94,20 +100,30 @@ cscw.attendance <- as.data.frame(cscw.attendance)
 class(cscw.attendance)
 
 #Now make a new vector called AttritionRate
-AttritionRate <- c((cscw.attendance$Day1-cscw.attendance)$Day2/cscw.attendance$Day1)
+#AttritionRate <- c((cscw.attendance$Day1-cscw.attendance)$Day2/cscw.attendance$Day1)
 
 #bind the new vector to the cscw.attendance dataframe
-cscw.attendance <- cbind(cscw.attendance, AttritionRate)
+#cscw.attendance <- cbind(cscw.attendance, AttritionRate)
 
-chisq.test(cscw.attendance)
+#chisq.test(cscw.attendance)
 
 #I got a warning message, though, sayin that the chi-squared approximation may be incorrect.
 #I'm not sure why. 
 
+#I shouldn't have added the attrition rate, I think that screwed everything up.
+#So commenting out what I did. 
+
+chisq.test(cscw.attendance)
+
+prop.test(as.matrix(cscw.attendance))
+
 #There appears to be no difference between these. 
 #I can't figure out how to get the proptest to work. 
+#NOTE: THAT'S BECAUSE PROPTEST HAS TO BE DONE ON A MATRIX
 
-#PC3. Download this dataset that was just published on 
+#PC3. 
+
+#Download this dataset that was just published on 
 #"The Effect of Images of Michelle Obama’s Face on Trick-or-Treaters’ Dietary 
 #Choices: A Randomized Control Trial." 
 #The paper doesn't seem to have even been published yet so I think the abstract is all we have. 
@@ -129,8 +145,6 @@ head(halloween.data)
 shown.michelle <- subset(halloween.data, halloween.data$obama==1)
 not.shown.michelle <- subset(halloween.data, halloween.data$obama==0)
 
-
-
 #(c) Do a simple test on whether or not the two groups are dependent. 
 #Be ready to report those tests. The results in the paper will use linear regression. 
 #Do you have a sense, from your reading, why your results using the coding material 
@@ -138,3 +152,18 @@ not.shown.michelle <- subset(halloween.data, halloween.data$obama==0)
 
 #I don't quite understand what test we were supposed to do. t-test?
 t.test(shown.michelle$fruit, not.shown.michelle$fruit)
+#That does actually work because it's treating them like proportions, but not really 
+#what we're after
+
+#NOTE: TANYA'S SOLUTION:
+# fruitface <- table(d$obama, d$fruit)
+# colnames(fruitface) <- c("No", "Yes")
+# rownames(fruitface) <- c("No", "Yes")
+# fruitface
+
+# going to recreate that:
+
+face.fruit.table <- table(face=halloween.data$obama, fruit=halloween.data$fruit)
+colnames(face.fruit.table) <- c("No", "Yes")
+rownames(face.fruit.table) <- c("No", "Yes")
+face.fruit.table
