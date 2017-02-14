@@ -84,6 +84,13 @@ red.dye.df.new
 
 #Thank god that worked.
 
+#NOTE: Mako used reshape library, which has cast and melt. Used the melt function, which
+#turns wide data into long data. 
+#libary(reshape2)
+#d <- melt (d, na.rm=TRUE) 
+#did EXACTLY what we were trying to do (First had renamed columns)
+#cast() will do the opposite thing
+
 #PC2. 
 #Create summary statistics and visualizations for each group. 
 #Write code that allows you to generate a useful way to both 
@@ -134,6 +141,10 @@ t.test(red.dye.df.new$DeathAge[red.dye.df.new$Group=="Control"],
 #We are 95% confident that the mean age of death for rats exposed to high amounts of RD40
 #is somewhere between 2.5 and 50 weeks lower than rats not exposed to any amount of RD40
 
+#NOTE: How Mako did this using formula notation:
+#d$control <- d$group == "control"
+#t.test(death.time ~ control, data=d)
+
 #PC4. 
 
 #Estimate an ANOVA analysis using aov() to see if there is a difference between the groups. 
@@ -145,3 +156,10 @@ red.dye.anova
 summary(red.dye.anova)
 
 #Was I supposed to do something about missing values here?
+
+
+#NOTE ON DEBUGGING
+#1. Save variables on the way
+#2. Harder in a function ... will walk through after the break
+
+
