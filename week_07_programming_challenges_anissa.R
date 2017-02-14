@@ -117,6 +117,13 @@ chisq.test(cscw.attendance)
 
 prop.test(as.matrix(cscw.attendance))
 
+#Order matters for prop test in a way that it doesn't for Chi Squared. so you can index in.
+#E.g. prop.test(cscw.attendance[2], cscw.attendance[1])
+
+
+#Mako flipped his with the transpose function:
+#d(t)
+
 #There appears to be no difference between these. 
 #I can't figure out how to get the proptest to work. 
 #NOTE: THAT'S BECAUSE PROPTEST HAS TO BE DONE ON A MATRIX
