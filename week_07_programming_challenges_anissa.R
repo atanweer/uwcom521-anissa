@@ -119,7 +119,17 @@ head(halloween.data)
 #Recode the data on being presented with Michelle Obama's face and 
 #the data on whether or not kids picked up fruit. we'll leave it at that for now.
 
+#I didn't really understand what we were supposed to recode.
+
+shown.michelle <- subset(halloween.data, halloween.data$obama==1)
+not.shown.michelle <- subset(halloween.data, halloween.data$obama==0)
+
+
 
 #(c) Do a simple test on whether or not the two groups are dependent. 
 #Be ready to report those tests. The results in the paper will use linear regression. 
-#Do you have a sense, from your reading, why your results using the coding material we've learned might be different?
+#Do you have a sense, from your reading, why your results using the coding material 
+#we've learned might be different?
+
+#I don't quite understand what test we were supposed to do. t-test?
+t.test(shown.michelle$fruit, not.shown.michelle$fruit)
