@@ -15,10 +15,21 @@ d.all <- read.csv("week3_dataset-anissa.csv")
 
 t.test(d.all$x, d.all$y)
 
+#NOTE: THE VALUE IN DOING THIS AT THIS STEP IS TO ESTABLISH THAT THEY'RE 
+#NOT DRAWN FROM THE SAME POPULATION
+
 #PC2. 
 
 #Estimate how correlated x and y are with each other.
 cor(d.all$x, d.all$y)
+
+#NOTE: MAKO ALSO DID THE SPEARMAN CORRELATION:
+#cor(d.all$x,d.all$y, method='spearman')
+#IN THIS CASE THERE IS NO DIFFERENCE BECAUSE THE RELATIONSHIP IS TRULY LINEAR
+#IF IT'S NOT, SPEARMAN HAS BETTER RESULTS
+
+#SPEARMAN IS ALWAYS SAFE. SHOULD ALWAYS RUN IT
+
 
 #PC3. 
 
@@ -48,6 +59,19 @@ lm.y.x.i.j.k <- lm(y ~ x + i + j + k, data = d.all)
 summary(lm.y.x)
 summary(lm.y.x.i.j)
 summary(lm.y.x.i.j.k)
+
+#NOTE: knone DISAPPEARED. MAKO SAYS IT'S IN THE INTERCEPT. THE INTERCEPT ENDS UP "COLLECTING" IT.
+#A IS REFERRED TO AS THE OMITTED VARIABLE. 
+#THE INTERCEPT GETS A LOT OF LEFTOVER STUFF, WHICH IS WHY PEOPLE DON'T TEND TO INTERPRET IT.
+#IT'S PERFECTLY PREDICTABLE WHAT THAT VALUE WILL BE GIVEN EVERYTHING ELSE
+#R WILL ALWAYS DROP THE FIRST LEVEL OF YOUR FACTOR
+#SO PEOPLE OFTEN MAKE THE FIRST LEVEL THE ONE THAT IS MOST PREVALENT IN THEIR DATA
+#SOMETIMES REFERRED TO AS THE "REFERENCE CASE"
+#ALL THE OTHER LEVELS ARE REFERRING TO THAT ONE. 
+#INTERPRET IT AS THE EFFECT OF HAVING SOME COMPARED TO NONE, THE EFFECT OF HAVING LOTS
+#COMPARED TO NONE, AND THE EFFECT OF HAVING ALL COMPARED TO NONE. 
+#OR IN ANOTHER CASE, PEOPLE WHO ARE FEMALE COMPARED TO MALE ... MALE WOULDN'T BE INCLUDED 
+#AS A VARIABLE
 
 #PC5. Generate a set of residual plots for the final model and be ready to 
 #interpret your model in terms of each of these:
@@ -88,7 +112,9 @@ write(stargazer(lm.y.x, lm.y.x.i.j, lm.y.x.i.j.k, type="html"), file = "model.co
 #be ready to interpret them similar to the way you did above in PC4
 
 halloween.data <- read.delim("Halloween2012-2014-2015_PLOS.tab")
+halloween.data <- halloween.data[complete.cases(halloween.data),]
 head(halloween.data)
+
 
 #(a)
 lm.obama <- lm(fruit ~ obama, data=halloween.data)
@@ -105,12 +131,19 @@ summary(lm.obama.controls)
 hist(residuals(lm.obama.controls))
 #Not at all normally distributed. There are two extremes.
 
+#plot(halloween.data$obama, residuals(lm.obama.controls))
+#plot(halloween.data$year, residuals(lm.obama.controls))
+#plot(halloween.data$age, residuals(lm.obama.controls))
+
+#I'm getting an error message for all of these saying that 'x' and 'y' lengths differ.
+#Not sure why that is
+#Because some are missing, should have limited to full list
+#Going to do that now and put it above
+
+#And now plot again:
 plot(halloween.data$obama, residuals(lm.obama.controls))
 plot(halloween.data$year, residuals(lm.obama.controls))
 plot(halloween.data$age, residuals(lm.obama.controls))
-
-#I'm getting an error message for all of these saying that 'x' and 'y' lengths differ.
-#Not sure who that is
 
 #(c)
 qqnorm(residuals(lm.obama.controls))
